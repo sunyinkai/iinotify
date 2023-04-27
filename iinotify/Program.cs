@@ -16,6 +16,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Redirect HTTP to HTTPS
+app.UseHttpsRedirection();
+
 app.UseAuthorization();
 
 app.MapControllers();
