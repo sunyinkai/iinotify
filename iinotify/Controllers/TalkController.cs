@@ -17,9 +17,15 @@ namespace iinotify.Controllers
         }
 
         [HttpPost]
-        public string Chat()
+        public async Task<ActionResult<string>> Chat()
         {
-            return _openAIService.Chat("When was Microsoft founded");
+            var formData = HttpContext.Request.Form;
+            string message = formData["message"];
+            if (message == null)
+            {
+                return BadRequest("No content provided");
+            }
+            return await _openAIService.Chat(message);
         }
     }
 }

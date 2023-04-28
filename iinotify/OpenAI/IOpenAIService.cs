@@ -1,7 +1,7 @@
-﻿namespace iinotify.OpenAI
+namespace iinotify.OpenAI
 {
     public interface IOpenAIService
     {
-        public string Chat(string messages);
+        public Task<string> Chat(string messages);
     }
 }

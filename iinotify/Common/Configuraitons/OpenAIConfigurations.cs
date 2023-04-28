@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 
 namespace iinotify.Common.Configuraitons
 {
