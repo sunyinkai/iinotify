@@ -15,9 +15,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Redirect HTTP to HTTPS
-app.UseHttpsRedirection();
+else
+{
+    // Redirect HTTP to HTTPS
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
