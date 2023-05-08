@@ -1,4 +1,6 @@
+using iinotify.ActionFilters;
 using iinotify.OpenAI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iinotify.Controllers
@@ -17,6 +19,7 @@ namespace iinotify.Controllers
         }
 
         [HttpPost]
+        [AuthZ]
         public async Task<ActionResult<string>> Chat()
         {
             var formData = HttpContext.Request.Form;
