@@ -11,7 +11,7 @@ namespace iinotify.Common
 
         public T GetConfig()
         {
-            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).AddEnvironmentVariables();
             var model = new T();
             config.Build().Bind(model);
             return model;
