@@ -4,7 +4,7 @@ import {
   PublicClientApplication,
 } from "@azure/msal-browser";
 
-const msalConfig: Configuration = {
+export const msalConfig: Configuration = {
   auth: {
     clientId: "75a1cc97-9cac-4c3f-920c-fa3546924eec",
     authority:
@@ -38,6 +38,9 @@ const msalConfig: Configuration = {
       },
     },
   },
+};
+export const loginRequest = {
+  scopes: [".default"],
 };
 
 export const msalInstance = new PublicClientApplication(msalConfig);
