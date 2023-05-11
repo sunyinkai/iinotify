@@ -6,6 +6,7 @@ import "./styles/App.css";
 import "./styles/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { EventType, PublicClientApplication } from "@azure/msal-browser";
+import { ChatBox } from "./chatBox";
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -32,7 +33,9 @@ msalInstance.addEventCallback((event: any) => {
 const App = () => {
   return (
     <MsalProvider instance={msalInstance}>
-      <PageLayout />
+      <PageLayout>
+        <ChatBox />
+      </PageLayout>
     </MsalProvider>
   );
 };

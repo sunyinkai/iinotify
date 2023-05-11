@@ -5,6 +5,7 @@
   "dependencies": {
     "@azure/msal-browser": "^3.0.0-alpha.1",
     "@azure/msal-react": "^2.0.0-alpha.0",
+    "@fluentui/react": "^8.109.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

@@ -1,17 +1,32 @@
-import { AuthenticatedTemplate } from "@azure/msal-react";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+} from "@azure/msal-react";
 import { NavigationBar } from "./NavigationBar";
+import { ReactNode } from "react";
 
-export const PageLayout = () => {
+type Props = {
+  children: ReactNode;
+};
+
+export const PageLayout = ({ children }: Props) => {
   return (
     <>
       <NavigationBar />
-      <br />
-      <h5>
-        <center>Welcome to the iinotify</center>
-      </h5>
+      <UnauthenticatedTemplate>
+        <h5>
+          <center>Please login in first!</center>
+        </h5>
+      </UnauthenticatedTemplate>
       <AuthenticatedTemplate>
+        <h5>
+          <center>Welcome to the iinotify</center>
+        </h5>
+        <br />
+        {children}
+        <br />
         <footer>
-          <center>You are Authenticated</center>
+          <center>Developed by CaC03</center>
         </footer>
       </AuthenticatedTemplate>
     </>

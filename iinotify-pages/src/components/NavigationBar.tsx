@@ -1,4 +1,4 @@
-import { Nav, Navbar, Dropdown, DropdownButton } from "react-bootstrap";
+import { Nav, Navbar, Button } from "react-bootstrap";
 import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
@@ -15,15 +15,6 @@ export const NavigationBar = () => {
     activeAccount = instance.getActiveAccount();
   }
 
-  const handleLoginPopup = () => {
-    instance
-      .loginPopup({
-        ...loginRequest,
-        redirectUri: "",
-      })
-      .catch((error) => console.log(error));
-  };
-
   const handleLoginRedirect = () => {
     instance.loginRedirect(loginRequest).catch((error) => console.log(error));
   };
@@ -32,56 +23,38 @@ export const NavigationBar = () => {
     instance.logoutRedirect();
   };
 
-  const handleLogoutPopup = () => {
-    instance.logoutPopup({
-      mainWindowRedirectUri: "/", // redirects the top level app after logout
-    });
-  };
-
   return (
     <>
       <Navbar bg="primary" variant="dark" className="navbarStyle">
         <a className="navbar-brand" href="/">
-          Microsoft identity platform
+          Home
         </a>
         <AuthenticatedTemplate>
           <Nav.Link className="navbarButton" href="/todolist">
             Todolist
           </Nav.Link>
           <div className="collapse navbar-collapse justify-content-end">
-            <DropdownButton
+            <Button
               variant="warning"
-              drop="start"
-              title={
-                activeAccount && activeAccount.username
-                  ? activeAccount.username
-                  : "Unknown"
-              }
+              title="Sign out"
+              onClick={handleLogoutRedirect}
             >
-              <Dropdown.Item as="button" onClick={handleLogoutPopup}>
-                Sign out using Popup
-              </Dropdown.Item>
-              <Dropdown.Item as="button" onClick={handleLogoutRedirect}>
-                Sign out using Redirect
-              </Dropdown.Item>
-            </DropdownButton>
+              {activeAccount && activeAccount.username
+                ? activeAccount.username
+                : "Unknown"}
+            </Button>
           </div>
         </AuthenticatedTemplate>
         <UnauthenticatedTemplate>
           <div className="collapse navbar-collapse justify-content-end">
-            <DropdownButton
+            <Button
               variant="secondary"
               className="ml-auto"
-              drop="start"
               title="Sign In"
+              onClick={handleLoginRedirect}
             >
-              <Dropdown.Item as="button" onClick={handleLoginPopup}>
-                Sign in using Popup
-              </Dropdown.Item>
-              <Dropdown.Item as="button" onClick={handleLoginRedirect}>
-                Sign in using Redirect
-              </Dropdown.Item>
-            </DropdownButton>
+              Sign in
+            </Button>
           </div>
         </UnauthenticatedTemplate>
       </Navbar>
