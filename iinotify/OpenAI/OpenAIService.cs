@@ -7,19 +7,20 @@ namespace iinotify.OpenAI
 {
     public class OpenAIService : IOpenAIService
     {
-        private readonly OpenAIClient _client;
         private readonly IConfigurationReader<OpenAIConfigurations> _configurationReader;
+        private readonly KeyVaultResolver _keyVaultResolver;
 
         public OpenAIService()
         {
             _configurationReader = new ConfigurationReader<OpenAIConfigurations>();
-            var configReader = _configurationReader.GetConfig();
-            this._client = new OpenAIClient(new Uri(configReader.OpenAIEndpoint), new Azure.AzureKeyCredential(configReader.OpenAICredential));
+            _keyVaultResolver = new KeyVaultResolver();
         }
 
-        async public Task<string> Chat(string message)
+        public async Task<string> Chat(string message)
         {
-            Response<ChatCompletions> responseWithoutStream = await this._client.GetChatCompletionsAsync(
+            var configReader = _configurationReader.GetConfig();
+            var openAIClient = new OpenAIClient(new Uri(configReader.OpenAIEndpoint), new Azure.AzureKeyCredential(await this._keyVaultResolver.GetSecrectAsync("OpenAICredential")));
+            Response<ChatCompletions> responseWithoutStream = await openAIClient.GetChatCompletionsAsync(
                 "gpt35",
                 new ChatCompletionsOptions()
                 {
