@@ -28,6 +28,7 @@ namespace iinotify.Controllers
             {
                 return BadRequest("No content provided");
             }
+
             return await _openAIService.Chat(message);
         }
     }
